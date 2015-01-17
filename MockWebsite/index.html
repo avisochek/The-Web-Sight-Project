@@ -1,0 +1,67 @@
+<html>
+<head>
+	<title>mock website</title>
+		<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+	<div class = "container">
+		<div class="row">
+		  <div class="col-xs-6 col-md-3">
+		    <a href="#" class="thumbnail" id = "b01">
+		      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		    </a>
+		  </div>
+		  <div class="col-xs-6 col-md-3" id = 'b02'>
+		    <a href="#" class="thumbnail">
+		      <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+		    </a>
+		  </div>
+		  <div class="col-xs-6 col-md-3">
+		    <a href="#" class="thumbnail" id = 'b03'>
+		      <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+		    </a>
+		  </div>
+		</div>
+	</div>
+
+	<script src="js/ion.sound.js"></script>
+
+
+	<script>
+	    $(document).ready(function(){
+
+	        ion.sound({
+	            sounds: [
+	                {name: "beer_can_opening"},
+	                {name: "bell_ring"},
+	                {name: "branch_break"}
+	            ],
+	            path: "sounds/",
+	            preload: true,
+	            volume: 1.0
+	        });
+
+	        $("#b01").hover(function(){
+	            ion.sound.play("beer_can_opening");
+	        });
+	        $("#b02").hover(function(){
+	            ion.sound.play("bell_ring");
+	        });
+	        $("#b03").hover(function(){
+	            ion.sound.play("branch_break");
+	        });
+
+	    });
+	</script>
+
+</body>
+</html>
