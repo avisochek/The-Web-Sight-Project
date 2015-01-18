@@ -214,11 +214,6 @@
             {
                 poss[poss.length] = new_pos[i];
             }
-            /*pos1 = new_pos[0];
-            pos2 = new_pos[1];
-            pos3 = new_pos[2];
-            pos4 = new_pos[3];
-            pos5 = new_pos[4];*/
 
             triggerEvent('mousemove');
 
@@ -230,6 +225,12 @@
                     opacity: 0.5
                 });
             }
+
+            /*var allCurPoss = [];
+            for (var d = 0; d<poss.length; d++)
+            {
+                allCursors[d].getPosition();
+            }*/
             /*
             $cursor.css({
                 top: (pos1[1] - 5) + 'px',
