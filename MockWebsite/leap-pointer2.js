@@ -162,6 +162,18 @@
         }
 
         function triggerEvent(name) {
+
+            for (var j = 0; j< poss.length; j++)
+            {
+                var ev = $.Event(name);
+                ev.pageX = (poss[j] === null) ? 0 : poss[j][0];
+                ev.pageY = (poss[j] === null) ? 0 : poss[j][1];
+                allCursors[j].hide();
+                var ele = document.elementFromPoint(ev.pageX, ev.pageY);
+                allCursors[j].show();
+                $(ele).trigger(ev);
+
+            }
             /*var ev = $.Event(name);
             ev.pageX = (pos1 === null) ? 0 : pos1[0];
             ev.pageY = (pos1 === null) ? 0 : pos1[1];
@@ -202,6 +214,8 @@
             $cursor5.hide();
         });
 
+        var poss = [];
+
         controller.on('frame', function(frame) {
             if (frame.pointables.length < 1) return;
 
@@ -215,7 +229,7 @@
                 poss[poss.length] = new_pos[i];
             }
 
-            triggerEvent('mousemove');
+            triggerEvent('mouseenter');
 
             for (var c = 0; c < poss.length; c++)
             {
