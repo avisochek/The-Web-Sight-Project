@@ -90,9 +90,11 @@
             top: 250
         }).appendTo($('body'));
 
+        var allCursors = [$cursor, $cursor2, $cursor3, $cursor4, $cursor5];
+
 
         function leapToScene(frame) {
-            var tip = frame.fingers[0].tipPosition;
+            /*var tip = frame.fingers[0].tipPosition;
             var tip2 = frame.fingers[1].tipPosition;
             var tip3 = frame.fingers[2].tipPosition;
             var tip4 = frame.fingers[3].tipPosition;
@@ -120,17 +122,53 @@
             if ((x < 0) || (x > w) || (y < 0) || (y > h) || (x2 < 0) || (x2 > w) || (y2 < 0) || (y2 > h) || (x3 < 0) || (x3 > w) || (y3 < 0) || (y3 > h) || (x4 < 0) || (x4 > w) || (y4 < 0) || (y4 > h) || (x5 < 0) || (x5 > w) || (y5 < 0) || (y5 > h))
                 return null;
 
-            return [[x, y], [x2, y2], [x3, y3], [x4, y4], [x5, y5]];
+            return [[x, y], [x2, y2], [x3, y3], [x4, y4], [x5, y5]];*/
+            function findFinger(finger)
+            {
+                if (finger === null)
+                {
+                    return [0,0];
+                }
+                else
+                {
+                    var tip = finger.tipPosition;
+                    var w = $(window).width();
+                    var h = $(window).height();
+                    var ibox = frame.interactionBox;
+                    var npos = ibox.normalizePoint(tip);
+                    var x = w * npos[0];
+                    var y = h * (1 - npos[1]);
+
+                    if ((x<0) || (x>w) || (y<0) || (y>h))
+                    {
+                        return [0,0];
+                    }
+                    else
+                    {
+                        return [x, y];
+                    }
+                }
+            }
+
+            var allFingers = [];
+            for (var i = 0; i<frame.fingers.length; i++)
+            {
+                var coord = findFinger(frame.fingers[i]);
+                allFingers[allFingers.length] = coord;
+            }
+
+            return allFingers;
+
         }
 
         function triggerEvent(name) {
-            var ev = $.Event(name);
+            /*var ev = $.Event(name);
             ev.pageX = (pos1 === null) ? 0 : pos1[0];
             ev.pageY = (pos1 === null) ? 0 : pos1[1];
             $cursor.hide();
             var el = document.elementFromPoint(ev.pageX, ev.pageY);
             $cursor.show();
-            $(el).trigger(ev);
+            $(el).trigger(ev);*/
         }
 
         function now() {
@@ -170,13 +208,29 @@
             var new_pos = leapToScene(frame);
             if (new_pos === null)
                 return;
-            pos1 = new_pos[0];
+
+            poss = [];
+            for (var i = 0; i < new_pos.length; i++)
+            {
+                poss[poss.length] = new_pos[i];
+            }
+            /*pos1 = new_pos[0];
             pos2 = new_pos[1];
             pos3 = new_pos[2];
             pos4 = new_pos[3];
-            pos5 = new_pos[4];
+            pos5 = new_pos[4];*/
 
             triggerEvent('mousemove');
+
+            for (var c = 0; c < poss.length; c++)
+            {
+                allCursors[c].css({
+                    top: (poss[c][1] - 5) + 'px',
+                    left: (poss[c][0] - 5) + 'px',
+                    opacity: 0.5
+                });
+            }
+            /*
             $cursor.css({
                 top: (pos1[1] - 5) + 'px',
                 left: (pos1[0] - 5) + 'px',
@@ -201,7 +255,7 @@
                 top: (pos5[1] - 5) + 'px',
                 left: (pos5[0] - 5) + 'px',
                 opacity: 0.5
-            });
+            });*/
         });
 
         $('body').focus();
