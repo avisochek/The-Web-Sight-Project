@@ -168,10 +168,11 @@
                 var ev = $.Event(name);
                 ev.pageX = (poss[j] === null) ? 0 : poss[j][0];
                 ev.pageY = (poss[j] === null) ? 0 : poss[j][1];
-                allCursors[j].hide();
+                // allCursors[j].hide();
                 var ele = document.elementFromPoint(ev.pageX, ev.pageY);
-                allCursors[j].show();
-                $(ele).trigger(ev);
+                // allCursors[j].show();
+                $(ele).trigger(ev, j);
+                //console.log(j);
 
             }
             /*var ev = $.Event(name);

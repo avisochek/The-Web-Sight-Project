@@ -12,17 +12,21 @@ $(document).ready(function(){
         volume: 1.0
     });
 
-    $("a").mouseenter(function(){
+    $("a").mouseenter(function (event, num){
         ion.sound.play("beer_can_opening");
+        console.log(1 + '.' + num);
     });
-    $("button").mouseenter(function(){
+    $("button").mouseenter(function (event, num){
         ion.sound.play("bell_ring");
+        console.log(2 + '.' + num);
     });
-    $("h1").mouseenter(function(){
+    $("h1").mouseenter(function (event, num){
         ion.sound.play("snap");
+        console.log(3 + '.' + num);
     });
-    $("img").mouseenter(function(){
+    $("img").mouseenter(function (event, num){
         ion.sound.play("branch_break");
+        console.log(4 + '.' + num);
     });
 
 });
