@@ -141,7 +141,7 @@
 	console.log('connected');
 	console.assert(port.name=="asdf");
 	port.onMessage.addListener(function(leap_coord) {
-		
+		console.log('asdfasdfasdf');
 		var new_pos = get_browser_coord(leap_coord);
 
 		poss = [];

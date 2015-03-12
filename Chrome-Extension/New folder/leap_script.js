@@ -1,6 +1,7 @@
 (function($) {
-	$.leapPointer = function() {
+	$.leap_pointer_on_page = function() {
 
+	//Cursor Objects
         var $cursor = $('<div>').css({
             display: 'block',
             background: '#000',
@@ -59,7 +60,7 @@
 
 
 
-	//returns x,y coordinates of each finger
+	//takes the x,y coordinates output by leap background and translates them to points on the screen.
 	function get_browser_coord(leap_coord) {
 		function findFinger(tip){
 			var w = $(window).width();
@@ -88,6 +89,7 @@
 
 
 
+	//triggers jquery events
         function triggerEvent(name) {
 
             for (var j = 0; j< poss.length; j++){
@@ -134,34 +136,36 @@
 
 
 	var poss = [];
-
-	console.log("I'm still here.");
 	
-	chrome.runtime.onConnect.addListener(function(port){
-	console.log('connected');
-	console.assert(port.name=="asdf");
-	port.onMessage.addListener(function(leap_coord) {
-		console.log('asdfasdfasdf');
-		var new_pos = get_browser_coord(leap_coord);
+	chrome.runtime.onConnect.addListener(function(port){ // establish a new port connection with chrome runtime...
 
-		poss = [];
+		console.log('connected');
+		console.assert(port.name=="asdf");
+		
+		port.onMessage.addListener(function(leap_coord) { // run this code every time a message is sent to the active tab...
+			console.log('asdfasdfasdf');
 
-		for (var i = 0; i < new_pos.length; i++){
-			poss[poss.length] = new_pos[i];
-		}
+			var new_pos = get_browser_coord(leap_coord); 
+
+			poss = [];
+
+			for (var i = 0; i < new_pos.length; i++){
+				poss[poss.length] = new_pos[i];
+			}
 			
-		triggerEvent('mouseenter');
+			triggerEvent('mouseenter');
 			
-		for (var c = 0; c < poss.length; c++){
-			allCursors[c].css({
-				top: (poss[c][1] - 5) + 'px',
-				left: (poss[c][0] - 5) + 'px',
-				opacity: 0.5
-			});
-		}
-	});
+			// update the position of the points on screen...
+			for (var c = 0; c < poss.length; c++){
+				allCursors[c].css({
+					top: (poss[c][1] - 5) + 'px',
+					left: (poss[c][0] - 5) + 'px',
+					opacity: 0.5
+				});
+			}
+		});
 	});
 
-        $('body').focus();
+        $('body').focus();//not sure what this does...
     };
 })(jQuery);

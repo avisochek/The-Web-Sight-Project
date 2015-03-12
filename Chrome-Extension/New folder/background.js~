@@ -5,9 +5,11 @@ socket.on("connect",function(){
 	$(function(){
 		$.leapPointer();	
 	});
-	chrome.runtime.onMessage.addListener(function(request,sender,sendRosponse){
+
+	//relay messages from the active tab to the socket.io server...
+	/*chrome.runtime.onMessage.addListener(function(request,sender,sendRosponse){
 		console.log('message recieved');
 		console.log(request.message);
 		socket.emit(request.message);
-	});
+	});*/
 });
