@@ -1,0 +1,26 @@
+
+{
+"name":"getting DOM to talk to socket",
+"version":"0.1",
+"manifest_version":2,
+
+"permissions": [
+"activeTab",
+"tabs",
+"http://*/",
+"http://*/*",
+"https://*/",
+"https://*/*"
+],
+
+"background": {
+	"scripts":["socket.io.js","jquery.min.js","leap.js","leap_background.js","background.js"]
+},
+
+"content_scripts": [
+	{
+	"matches":["http://*/*","http://*/","https://*/*","https://*/"],
+	"js": ["jquery.min.js","leap_script.js","bootstrap.min.js","script.js"]
+	}
+	]
+}
